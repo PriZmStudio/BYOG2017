@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(BoxCollider2D))]
 public class Door : MonoBehaviour {
@@ -31,6 +32,7 @@ public class Door : MonoBehaviour {
             {
                 print("NEXT LEVEL");
                 camera.GetComponent<Fading>().BeginFade(1);
+                StartCoroutine(nextLevel());
             }
         }
     }
@@ -43,5 +45,11 @@ public class Door : MonoBehaviour {
     public void collectMemories(Memory memory)
     {
         collectedMemories.Add(memory);
+    }
+
+    IEnumerator nextLevel()
+    {
+        yield return new WaitForSeconds(1.5f);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }
