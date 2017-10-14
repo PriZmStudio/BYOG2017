@@ -29,7 +29,7 @@ public class PlayerMotor : MonoBehaviour
         rb.velocity = new Vector2(velocity, rb.velocity.y);
 
         RaycastHit2D hit = Physics2D.Raycast(transform.position, -Vector2.up, 500, layers);
-        if (hit.distance < 0.5f)
+        if (hit.distance < 0.5f && hit.collider != null)
         {
             //print("We hit: "+hit.collider.gameObject.name+" distance: "+hit.distance);
             isGrounded = true;
