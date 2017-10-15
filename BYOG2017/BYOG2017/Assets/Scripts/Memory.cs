@@ -10,6 +10,9 @@ public class Memory : MonoBehaviour {
     SpriteRenderer spriteRenderer;
     BoxCollider2D coll;
 
+    [SerializeField]
+    GameObject effects;
+
 	// Use this for initialization
 	void Start () {
         isCaptured = false;
@@ -27,6 +30,7 @@ public class Memory : MonoBehaviour {
         isCaptured = true;
         spriteRenderer.enabled = false;
         coll.enabled = false;
+        effects.SetActive(false);
         Door.collectedMemories.Add(this);
     }
 
