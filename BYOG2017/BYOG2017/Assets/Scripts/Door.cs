@@ -11,6 +11,11 @@ public class Door : MonoBehaviour {
 
     GameObject camera;
 
+    [SerializeField]
+    Sprite doorClosed, doorOpen;
+
+    int doOnce;
+
 	// Use this for initialization
 	void Start () {
         collectedMemories.Clear();
@@ -18,11 +23,16 @@ public class Door : MonoBehaviour {
         print(totalMemories);
 
         camera = GameObject.Find("Camera");
+        GetComponent<SpriteRenderer>().sprite = doorClosed;
+        doOnce = 0;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
+        if (allMemoriesCollected() && doOnce == 0) {
+            doOnce++;
+            GetComponent<SpriteRenderer>().sprite = doorOpen;
+        }
 	}
 
     void OnTriggerEnter2D(Collider2D coll)

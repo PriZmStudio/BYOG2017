@@ -13,6 +13,8 @@ public class CameraController : MonoBehaviour {
     Vector3 screenPos;
     Rigidbody2D rb, playerRb;
 
+    float leftBorder = 0.3f, rightBorder = 0.7f;
+
 	// Use this for initialization
 	void Start () {
         camera = GetComponent<Camera>();
@@ -28,7 +30,7 @@ public class CameraController : MonoBehaviour {
         //screenPos = camera.WorldToScreenPoint(target.position);
         screenPos = camera.WorldToViewportPoint(target.transform.position);
         
-        float horizontalSpeed = (screenPos.x <= 0.2 || screenPos.x >= 0.8) ? playerRb.velocity.x : 0.0f;
+        float horizontalSpeed = (screenPos.x <= leftBorder || screenPos.x >= rightBorder) ? playerRb.velocity.x : 0.0f;
         rb.velocity = new Vector2(horizontalSpeed, 0.0f);
 	}
 }
