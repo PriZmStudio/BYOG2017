@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(BoxCollider2D))]
 public class Door : MonoBehaviour {
@@ -14,13 +15,18 @@ public class Door : MonoBehaviour {
     [SerializeField]
     Sprite doorClosed, doorOpen;
 
+    [SerializeField]
+    AnimateDiaryImage diaryImage;
+
     int doOnce;
+
+    public bool won;
 
 	// Use this for initialization
 	void Start () {
+        won = false;
         collectedMemories.Clear();
         totalMemories = GameObject.Find("Memories").transform.childCount;
-        print(totalMemories);
 
         camera = GameObject.Find("Camera");
         GetComponent<SpriteRenderer>().sprite = doorClosed;
@@ -40,14 +46,15 @@ public class Door : MonoBehaviour {
         if (coll.tag == "Player") {
             if (allMemoriesCollected())
             {
-                print("NEXT LEVEL");
+                won = true;
                 camera.GetComponent<Fading>().BeginFade(1);
+                //diaryImage.ShowImage();
                 StartCoroutine(nextLevel());
             }
         }
     }
 
-    bool allMemoriesCollected()
+    public bool allMemoriesCollected()
     {
         return collectedMemories.Count == totalMemories;
     }
@@ -59,6 +66,13 @@ public class Door : MonoBehaviour {
 
     IEnumerator nextLevel()
     {
+        yield return new WaitForSeconds(0.5f);
+        diaryImage.ShowImage();
+        yield return new WaitForSeconds(1.5f);
+        camera.GetComponent<Fading>().BeginFade(-1);
+        //diaryImage.ShowImage();
+        yield return new WaitForSeconds(6.0f);
+        camera.GetComponent<Fading>().BeginFade(1);
         yield return new WaitForSeconds(1.5f);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }

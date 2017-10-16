@@ -36,6 +36,7 @@ namespace UnityStandardAssets.Utility
             {
                 yield return null;
             }
+            /*
             Debug.Log("stopping " + name);
 
             // turn off emission
@@ -50,6 +51,7 @@ namespace UnityStandardAssets.Utility
             yield return new WaitForSeconds(m_MaxLifetime);
 
             Destroy(gameObject);
+            */
         }
 
 

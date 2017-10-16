@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(BoxCollider2D))]
 [RequireComponent(typeof(SpriteRenderer))]
@@ -11,7 +13,10 @@ public class Memory : MonoBehaviour {
     BoxCollider2D coll;
 
     [SerializeField]
-    GameObject effects;
+    GameObject effects, fireball;
+
+    [SerializeField]
+    Image diaryImage;
 
 	// Use this for initialization
 	void Start () {
@@ -27,6 +32,12 @@ public class Memory : MonoBehaviour {
 
     public void captureMemory()
     {
+        Color img = diaryImage.color;
+        img.a = 0.25f;
+        diaryImage.color = img;
+        diaryImage.DOFade(0.0f, 1.0f);
+        Instantiate(fireball, transform.position, Quaternion.identity);
+        GetComponent<AudioSource>().Play();
         isCaptured = true;
         spriteRenderer.enabled = false;
         coll.enabled = false;
