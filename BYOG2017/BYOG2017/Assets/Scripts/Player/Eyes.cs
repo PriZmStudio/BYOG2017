@@ -6,14 +6,36 @@ public class Eyes : MonoBehaviour {
     
     GameObject eye_left, eye_right;
 
+    enum Direction
+    {
+        LEFT = 1, RIGHT = 2
+    }
+
     float eye_on_time = 1.0f, eye_off_time = 0.5f;
+
+    int currentLookAtDirection;
 
 	// Use this for initialization
 	void Start () {
         eye_left = gameObject.transform.GetChild(0).gameObject;
         eye_right = gameObject.transform.GetChild(1).gameObject;
         StartCoroutine(Blink());
+        currentLookAtDirection = (int)Direction.RIGHT;
         look_right();
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.RightArrow) && currentLookAtDirection == (int)Direction.LEFT) {
+            currentLookAtDirection = (int)Direction.RIGHT;
+            look_right();
+        }
+
+        if (Input.GetKeyDown(KeyCode.LeftArrow) && currentLookAtDirection == (int)Direction.RIGHT)
+        {
+            currentLookAtDirection = (int)Direction.LEFT;
+            look_left();
+        }
     }
 
     IEnumerator Blink()

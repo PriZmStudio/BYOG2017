@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class CameraController : MonoBehaviour {
+public class CameraController1 : MonoBehaviour {
 
     [SerializeField]
     GameObject target;
