@@ -28,4 +28,19 @@ public class MovingPlatform : MonoBehaviour {
         movingUp = !movingUp;
         StartCoroutine(Animate());
     }
+
+    void OnCollisionEnter2D(Collision2D coll)
+    {
+        if (coll.gameObject.tag == "Player") {
+            coll.gameObject.transform.SetParent(transform);
+        }
+    }
+
+    void OnCollisionExit2D(Collision2D coll)
+    {
+        if (coll.gameObject.tag == "Player")
+        {
+            coll.gameObject.transform.parent = null;
+        }
+    }
 }

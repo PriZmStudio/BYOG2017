@@ -37,7 +37,11 @@ public class Death : MonoBehaviour {
             StartCoroutine(Kill());
             isDead = true;
             eyes.SetActive(false);
-            camera.GetComponent<CameraController>().enabled = false;
+            //camera.GetComponent<CameraController>().enabled = false;
+            GetComponent<Rigidbody2D>().gravityScale = 0.0f;
+            GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY;
+            GetComponent<PlayerController>().enabled = false;
+            GetComponent<PlayerMotor>().enabled = false;
             playerGFX.GetComponent<SpriteRenderer>().enabled = false;
             playerGFX.GetComponent<GhostSprites>().enabled = false;
             //cameraShake.Shake(0.05f, 0.1f);
