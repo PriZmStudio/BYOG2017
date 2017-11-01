@@ -7,8 +7,14 @@ public class Spikes : MonoBehaviour {
 
     int i = 1;
 
+    GameObject thePlayer;
+
 	// Use this for initialization
 	void Start () {
+        thePlayer = GameObject.FindGameObjectWithTag("Player");
+        if (thePlayer == null) {
+            Debug.LogError("NO PLAYER FOUND");
+        }
         StartCoroutine(Rotate());
 	}
 	
@@ -18,8 +24,8 @@ public class Spikes : MonoBehaviour {
 	}
 
     void OnTriggerEnter2D(Collider2D coll) {
-        if (coll.tag == "Player") {
-            Death.KillPlayer();
+        if (coll.tag == "Player" && thePlayer != null) {
+            thePlayer.GetComponent<Death>().KillPlayer();
         }
     }
 

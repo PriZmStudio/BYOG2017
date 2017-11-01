@@ -7,6 +7,7 @@ using UnityEngine.UI;
 [RequireComponent(typeof(BoxCollider2D))]
 [RequireComponent(typeof(SpriteRenderer))]
 public class Memory : MonoBehaviour {
+    CameraShake cameraShake;
 
     bool isCaptured;
     SpriteRenderer spriteRenderer;
@@ -23,6 +24,11 @@ public class Memory : MonoBehaviour {
         isCaptured = false;
         spriteRenderer = GetComponent<SpriteRenderer>();
         coll = GetComponent<BoxCollider2D>();
+
+        cameraShake = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraShake>();
+        if (cameraShake == null) {
+            Debug.LogError("No Camera Found");
+        }
     }
 
     public bool isMemoryCaptured()
@@ -32,6 +38,8 @@ public class Memory : MonoBehaviour {
 
     public void captureMemory()
     {
+        if (cameraShake != null)
+            cameraShake.Shake(0.1f, 0.2f);
         Color img = diaryImage.color;
         img.a = 0.25f;
         diaryImage.color = img;

@@ -4,23 +4,50 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class Death : MonoBehaviour {
-    
+    CameraShake cameraShake;
+    GameObject camera;
+
     Door door;
-    
+
+    [SerializeField]
+    GameObject deathParticle, playerGFX, eyes;
+
+    bool isDead;
+
 	// Use this for initialization
 	void Start () {
         door = GameObject.Find("door").GetComponent<Door>();
-	}
+        isDead = false;
+
+        camera = GameObject.FindGameObjectWithTag("MainCamera");
+        cameraShake = camera.GetComponent<CameraShake>();
+    }
 	
 	// Update is called once per frame
 	void Update () {
         if (transform.position.y <= -10.0f && !door.won) {
             KillPlayer();
-        }		
+        }
 	}
 
-    public static void KillPlayer()
+    public void KillPlayer()
     {
+        if (!isDead)
+        {
+            StartCoroutine(Kill());
+            isDead = true;
+            eyes.SetActive(false);
+            camera.GetComponent<CameraController>().enabled = false;
+            playerGFX.GetComponent<SpriteRenderer>().enabled = false;
+            playerGFX.GetComponent<GhostSprites>().enabled = false;
+            //cameraShake.Shake(0.05f, 0.1f);
+        }
+    }
+
+    IEnumerator Kill()
+    {
+        Instantiate(deathParticle, transform.position, Quaternion.identity);
+        yield return new WaitForSeconds(0.8f);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
