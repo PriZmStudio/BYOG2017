@@ -44,7 +44,7 @@ public class Death : MonoBehaviour {
             GetComponent<PlayerMotor>().enabled = false;
             playerGFX.GetComponent<SpriteRenderer>().enabled = false;
             playerGFX.GetComponent<GhostSprites>().enabled = false;
-            //cameraShake.Shake(0.05f, 0.1f);
+            cameraShake.Shake(0.1f, 0.2f);
         }
     }
 
