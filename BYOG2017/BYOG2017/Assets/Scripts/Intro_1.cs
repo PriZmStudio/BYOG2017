@@ -28,6 +28,7 @@ public class Intro_1 : MonoBehaviour {
     IEnumerator nextLevel()
     {
         yield return new WaitForSeconds(0.5f);
-        SceneManager.LoadScene("level01");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        //SceneManager.LoadScene("level01");
     }
 }

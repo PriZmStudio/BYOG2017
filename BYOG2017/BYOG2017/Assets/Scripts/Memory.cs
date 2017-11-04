@@ -19,8 +19,10 @@ public class Memory : MonoBehaviour {
     [SerializeField]
     Image diaryImage;
 
-	// Use this for initialization
-	void Start () {
+    GameObject player;
+
+    // Use this for initialization
+    void Start () {
         isCaptured = false;
         spriteRenderer = GetComponent<SpriteRenderer>();
         coll = GetComponent<BoxCollider2D>();
@@ -29,6 +31,7 @@ public class Memory : MonoBehaviour {
         if (cameraShake == null) {
             Debug.LogError("No Camera Found");
         }
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     public bool isMemoryCaptured()
@@ -51,6 +54,7 @@ public class Memory : MonoBehaviour {
         coll.enabled = false;
         effects.SetActive(false);
         Door.collectedMemories.Add(this);
+        player.GetComponent<MemoryStatusIndicator>().showStatus(Door.collectedMemories.Count, Door.mems);
     }
 
     void OnTriggerEnter2D(Collider2D _coll)

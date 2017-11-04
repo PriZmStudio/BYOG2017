@@ -14,6 +14,8 @@ public class Death : MonoBehaviour {
 
     bool isDead;
 
+    AudioSource audioSource;
+
 	// Use this for initialization
 	void Start () {
         door = GameObject.Find("door").GetComponent<Door>();
@@ -21,6 +23,7 @@ public class Death : MonoBehaviour {
 
         camera = GameObject.FindGameObjectWithTag("MainCamera");
         cameraShake = camera.GetComponent<CameraShake>();
+        audioSource = GetComponent<AudioSource>();
     }
 	
 	// Update is called once per frame
@@ -44,6 +47,7 @@ public class Death : MonoBehaviour {
             GetComponent<PlayerMotor>().enabled = false;
             playerGFX.GetComponent<SpriteRenderer>().enabled = false;
             playerGFX.GetComponent<GhostSprites>().enabled = false;
+            audioSource.Play();
             cameraShake.Shake(0.1f, 0.2f);
         }
     }

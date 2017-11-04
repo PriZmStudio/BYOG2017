@@ -10,6 +10,8 @@ public class Door : MonoBehaviour {
     public static List<Memory> collectedMemories = new List<Memory>();
     int totalMemories;
 
+    public static int mems;
+
     GameObject camera;
 
     [SerializeField]
@@ -17,6 +19,9 @@ public class Door : MonoBehaviour {
 
     [SerializeField]
     AnimateDiaryImage diaryImage;
+
+    [SerializeField]
+    Thunder thunder;
 
     int doOnce;
 
@@ -27,6 +32,7 @@ public class Door : MonoBehaviour {
         won = false;
         collectedMemories.Clear();
         totalMemories = GameObject.Find("Memories").transform.childCount;
+        mems = totalMemories;
 
         camera = GameObject.Find("Camera");
         GetComponent<SpriteRenderer>().sprite = doorClosed;
@@ -46,12 +52,23 @@ public class Door : MonoBehaviour {
         if (coll.tag == "Player") {
             if (allMemoriesCollected())
             {
+                thunder.startThunder();
                 won = true;
                 camera.GetComponent<Fading>().BeginFade(1);
                 //diaryImage.ShowImage();
                 StartCoroutine(nextLevel());
             }
         }
+    }
+
+    public int memoriesCollected()
+    {
+        return collectedMemories.Count;
+    }
+
+    public int getTotalMemories()
+    {
+        return totalMemories;
     }
 
     public bool allMemoriesCollected()
