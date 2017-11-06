@@ -10,10 +10,7 @@ public class JumpChecker : MonoBehaviour {
     CameraShake cameraShake;
 
     [SerializeField]
-    GameObject dustParticles;
-
-    [SerializeField]
-    Transform feetPosition;
+    GameObject dustParticles, feet;
 
 	// Use this for initialization
 	void Start () {
@@ -41,7 +38,8 @@ public class JumpChecker : MonoBehaviour {
             else
                 cameraShake.Shake(0.1f, 0.2f);
 
-            GameObject _dust = Instantiate(dustParticles, feetPosition.position, Quaternion.identity);
+            GameObject _dust = Instantiate(dustParticles, feet.transform.position, Quaternion.identity);
+            feet.GetComponent<AudioSource>().Play();
             Destroy(_dust, 0.5f);
         }
     }
